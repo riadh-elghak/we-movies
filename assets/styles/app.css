@@ -1,0 +1,50 @@
+@import '~bootstrap-star-rating/css/star-rating.css';
+@import '~bootstrap-star-rating/themes/krajee-svg/theme.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+body {
+    background-color: white;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+}
+.mtt-7 {margin-top: 7px;}
+
+p { font-size: 14px;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;}
+
+p.smalltxt { font-size: 11px;}
+p.mediumltxt { font-size: 12px;}
+p.graytxt {color: gray;}
+p.bluetxt {color:#235fff;}    
+
+h4 {font-size: 16px; color:#565656; }
+
+.headtitle h1 { font-size: 20px; text-decoration: underline; max-width: 50%;}
+.headtitle form {max-width: 300px;}
+.headtitle form  .input-group input { 
+    border-width: 1px 0 1px 1px !important;
+}
+.headtitle form  .input-group-append button{ 
+    border-width: 1px 1px 1px 0 !important;
+    border-radius: 0 5px 5px 0;
+    height: 44px;
+}
+.ui-autocomplete {    
+    width: 200px !important;
+    background: white;
+}
+iframe { 
+    height: 400px;
+    width: 100%;  
+    margin-bottom: 30px;}
+.detail-film {
+    gap: 15px;
+    align-items: center;
+}
+input#ratingId, input#ratingModalId {display: none;}
+
+.rating-container {    margin-top: -11px;}
+.roundedbout {border-radius: 20px;}
+.floatright { float: right;}
+
+

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Films{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-4 mb-4 d-flex justify-content-between headtitle">
+      <h1>A propos de We Movies</h1>
+      <form class="d-flex" method="post" action="{{ path('homepage') }}">
+        <div class="input-group col-md-4">
+            <input class="form-control py-2 border-right-0 border" type="search" name="search" value="" id="search" placeholder="Search">
+            <span class="input-group-append">
+                <button class="btn btn-outline-secondary border-left-0 border" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+    </div>
+    <div class="row" >
+        {% for film in popular %}            
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ film.official_trailer.key }}?rel=0" allowfullscreen id="videoPopular"></iframe>
+            <p>{{ film.overview }}</p>
+        {% endfor %}  
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-4">
+            {% for genre in genres %}
+                <div class="form-check">
+                    {% set paramGenres = app.request.query.get('genres') %}
+                    <input class="form-check-input" type="checkbox" value="{{ genre.id }}" id="flexCheckDefault-{{ genre.id }}" {% if  genre.id == paramGenres %}checked{% endif %} onclick="window.location.href='{{ path('homepage', {'genres' : genre.id}) }}'">
+                    <label class="form-check-label" for="flexCheckDefault-{{ genre.id }}">
+                        {{ genre.name }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-8"> 
+            {% for movie in movies %}
+                <div class="row alert alert-dismissible alert-light">
+                    <div class="col-md-3">
+                        <img src="https://media.themoviedb.org/t/p/w440_and_h660_face/{{ movie.backdrop_path }}" class="img-fluid">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex detail-film ">
+                            <h4>{{ movie.title }}</h4> 
+                            <input id="ratingId" type="text" class="rating" data-size="xs"  data-show-clear = "false" data-show-caption = "false" value="{{ movie.vote_average / 2 }}" data-disabled="true">
+                            <p class="smalltxt graytxt mtt-7">({{ movie.vote_count }} votes)</p>
+                        </div>
+                        <div class="d-flex detail-film">
+                            <p class="mediumltxt graytxt">{{ movie.release_date | date("Y") }}</p>
+                            <p class="mediumltxt bluetxt">{{ movie.production_companies }}</p>
+                        </div>
+                        <p>{{ movie.overview }}</p>
+                        {% if  movie.official_trailer.key is defined %}
+                            <button type="button" name="openModal" class="btn btn-primary roundedbout floatright" data-toggle="modal" data-target="#exampleModal" 
+                            data-link="https://www.youtube.com/embed/{{ movie.official_trailer.key }}?rel=0"  data-overview="{{ movie.overview }}"
+                            data-average="{{ movie.vote_average / 2 }}" data-vote="{{ movie.vote_count }}" data-movieid="{{ movie.id }}"
+                            >Lire le details</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}            
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <iframe class="embed-responsive-item" src="" allowfullscreen id="video"></iframe>
+                    <p id="overview"></p>
+                    <div class="d-flex detail-film ">
+                    <input id="ratingModalId" type="text" class="rating" data-size="xs" data-show-clear="false" data-show-caption="true" value="" data-disabled="false" data-movieid="" >
+                    <p class="mtt-7">pour <span id="vote_count"></span>  utilisateurs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+{% endblock %}
