@@ -23,5 +23,9 @@ docker-compose run node npm i
 docker-compose run node yarn install
 docker-compose run node yarn build
 ```
+4. lancer le serveur
+```
+symfony serve
+```
 
 Finaly go to this URL to see the app http://127.0.0.1:8000/
